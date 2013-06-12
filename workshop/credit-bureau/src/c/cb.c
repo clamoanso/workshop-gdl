@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Este aplicacion representa a una entidad crediticia la cual
  * concentra todos los creditos otorgados a los clientes de
  * diferentes entidades.
@@ -24,18 +24,27 @@ void doprocessing (int sock)
     
     /* Receive message from client */
     if ((recvMsgSize = recv(sock, buffer, 256, 0)) < 0)
-        perror("ERROR reading to socket");
+        perror("ERROR reading to socket aca");
+
+	int x;
+	  
 
     /* Send received string and receive again until end of transmission */
     while (recvMsgSize > 0)      /* zero indicates end of transmission */
     {
         /* Echo message back to client */
         if (send(sock, buffer, recvMsgSize, 0) != recvMsgSize)
-            perror("ERROR writing to socket");
+            perror("ERROR writing to socket alla");
+            
+         for (x=0; x<recvMsgSize; x++)
+	  {
+    	printf("The count in %d %c\n",x, buffer[x]);
+	
+	  }
 
         /* See if there is more data to receive */
         if ((recvMsgSize = recv(sock, buffer, 256, 0)) < 0)
-            perror("ERROR reading to socket");
+            perror("ERROR reading to socket acuya");
     }
 
     closesocket(sock);    /* Close client socket */
@@ -125,7 +134,8 @@ int main()
       printf("Se obtuvo una conexión desde %s\n", inet_ntoa(client.sin_addr) );
       /* que mostrará la IP del cliente */
 
-      send(fd2,"Bienvenido a mi servidor.\n",22,0);
+      send(fd2,"Bienvenido a el Servidor Monica.\n",99,0);
+	
       /* que enviará el mensaje de bienvenida al cliente */
       
       doprocessing(fd2);
