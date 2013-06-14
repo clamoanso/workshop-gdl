@@ -76,6 +76,52 @@ BOOL initW32()
 		    return FALSE;
 		}	
 }
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+int findRFC(char b[])
+{
+    FILE *p;
+    char a[256]={0x0};
+
+    if((p=fopen("Loans.txt","r")) == NULL)
+        {
+            printf("Error en apertura\n");
+            getch();
+            return 1;
+            exit(1);
+        }
+    else
+        {
+            while(p!=NULL && fgets(a,sizeof(a),p)!=NULL)
+            {
+                if(strstr(a,b))
+                return 0;
+                printf("%s",a);
+            }
+            if(p!=NULL)
+                fclose(p);
+        }
+}
+int addRFC(char b[])
+ {
+     FILE *p;
+     char a[256];
+     strcpy(a,b);
+
+     if((p=fopen("Loans.txt","a")) == NULL)
+        {
+            printf("Error en apertura\n");
+            getch();
+            return 1;
+            exit(1);
+        }
+
+      fputs(a,p);
+      printf("\n");
+		return 0;
+     fclose(p);
+ }
 
 int main()
 {
