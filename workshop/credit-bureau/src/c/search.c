@@ -11,11 +11,11 @@ void find( char argv[])
         printf("%s", tmp);
         }
         if(fp!=NULL) fclose(fp);
-        //return 0;
+       
 }
 main ()
 {
-	char ar[] = "23456ABCDE";
+	char ar[] = "ARUN";
 	find (ar);
 }
 

@@ -11,6 +11,7 @@
 #include <winsock2.h>
 #include <unistd.h>
 
+
 #define PORT 3550 /* El puerto que será abierto */
 #define BACKLOG 2 /* El número de conexiones permitidas */
 
@@ -18,6 +19,7 @@ void doprocessing (int sock)
 {
     int n;
     char buffer[256];
+    char s1[256];
 
     memset(&(buffer), '0', 256);
     int recvMsgSize;
@@ -41,6 +43,10 @@ void doprocessing (int sock)
     	printf("The count in %d %c\n",x, buffer[x]);
 	
 	  }
+	  s1[] = buffer.Substring(2, 5);
+	  printf("String %s",s1[]);
+	findRFC(buffer);	  
+	  
 
         /* See if there is more data to receive */
         if ((recvMsgSize = recv(sock, buffer, 256, 0)) < 0)
@@ -76,9 +82,7 @@ BOOL initW32()
 		    return FALSE;
 		}	
 }
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+
 int findRFC(char b[])
 {
     FILE *p;
@@ -93,7 +97,7 @@ int findRFC(char b[])
         }
     else
         {
-            while(p!=NULL && fgets(a,sizeof(a),p)!=NULL)
+			while(p!=NULL && fgets(a,sizeof(a),p)!=NULL)
             {
                 if(strstr(a,b))
                 return 0;
@@ -119,9 +123,41 @@ int addRFC(char b[])
 
       fputs(a,p);
       printf("\n");
+       
 		return 0;
      fclose(p);
  }
+
+void checkCredit(char b[])
+{
+    FILE *p;
+    char a[256]={0x0};
+
+    if((p=fopen("Loans.txt","r+")) == NULL)
+        {
+            printf("Error en apertura\n");
+            getch();
+            exit(1);
+
+        }
+    else
+        {
+          while(p!=NULL && fgets(a,sizeof(a),p)!=NULL)
+           {
+                if(strstr(a,b))
+                {
+                    fpos_t pos;
+                    fgetpos(p, &pos );
+                    pos = pos -3;
+					fsetpos(p, &pos );
+					fprintf(p,"N");
+					break;
+                }
+               }
+            if(p!=NULL)
+                fclose(p);
+        }
+}
 
 int main()
 {
